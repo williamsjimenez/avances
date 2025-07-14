@@ -121,36 +121,29 @@
             font-size: 1.2em;
         }
 
+        /* --- CAMBIO CLAVE AQUÍ: .content y .section --- */
         .content {
             flex: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden; /* Asegura que la sección actual no genere scroll extra si su contenido es mayor al de .content */
+            /* Eliminado padding y justify-content para que las secciones se manejen a sí mismas */
+            display: block; /* Vuelve a ser un bloque normal */
+            position: relative; /* Contexto de posicionamiento para las secciones absolutas */
+            overflow: hidden; /* Oculta cualquier desbordamiento general del contenedor de secciones */
         }
 
         .section {
             display: none;
             animation: fadeIn 0.5s ease;
-            height: 100%; /* Las secciones deben tomar la altura disponible del .content */
+            position: absolute; /* Posiciona las secciones de forma absoluta */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             overflow-y: auto; /* Permite scroll individual si la sección es muy larga */
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
             scrollbar-color: #e2e8f0 transparent;
-        }
-
-        .section::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .section::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .section::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
-            border-radius: 3px;
+            padding: 40px; /* El padding se mueve AHORA a cada sección */
+            box-sizing: border-box; /* Asegura que el padding no cause desbordamiento con width/height 100% */
         }
 
         .section.active {
@@ -201,6 +194,7 @@
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
             max-height: calc(100vh - 300px); /* Ajuste basado en el header y navigation */
+            /* Este max-height puede necesitar ser ajustado dependiendo de la altura de header/navigation + padding de .section */
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
@@ -276,6 +270,7 @@
 
         .timeline-container {
             max-height: calc(100vh - 200px); /* Ajuste basado en el header y navigation */
+            /* Este max-height puede necesitar ser ajustado dependiendo de la altura de header/navigation + padding de .section */
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
@@ -433,8 +428,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100%; /* Asegura que la sección tome toda la altura disponible */
-            overflow-y: auto; /* Permite scroll si el contenido es muy grande, especialmente en móviles */
+            /* Padding ya está en .section, así que no es necesario aquí */
         }
 
         .invitacion-content-wrapper {
@@ -444,7 +438,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             align-items: center;
-            padding: 20px; /* Añade un padding para evitar que toque los bordes de la pantalla */
+            /* Padding ya está en .section, así que no es necesario aquí, a menos que quieras más interno */
         }
 
         .gradient-panel {
@@ -455,8 +449,8 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Sutil sombra para destacar */
-            display: flex; /* Para centrar contenido con flexbox */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -485,7 +479,7 @@
         .gradient-panel .content-wrapper {
             position: relative;
             z-index: 1;
-            width: 100%; /* Asegura que el contenido interno no se desborde */
+            width: 100%;
         }
 
         .gradient-panel .emoji {
@@ -506,7 +500,7 @@
             border-radius: 30px;
             margin-bottom: 25px;
             backdrop-filter: blur(10px);
-            display: inline-block; /* Para que el badge no ocupe todo el ancho */
+            display: inline-block;
         }
 
         .gradient-panel .time-badge p {
@@ -520,8 +514,8 @@
             padding: 20px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
-            width: 80%; /* Ajuste para que no sea demasiado ancho en pantallas grandes */
-            margin: 0 auto; /* Centrar */
+            width: 80%;
+            margin: 0 auto;
         }
 
         .location-info .emoji {
@@ -545,12 +539,12 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Espacio entre los elementos del panel */
+            gap: 20px;
         }
 
         .agenda-panel .panel-header {
             text-align: center;
-            margin-bottom: 10px; /* Reducido para mejor flujo */
+            margin-bottom: 10px;
         }
 
         .agenda-panel h2 {
@@ -584,7 +578,7 @@
         .agenda-card .agenda-items {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Espacio entre los items de la agenda */
+            gap: 15px;
         }
 
         .agenda-item {
@@ -726,9 +720,13 @@
             }
             
             .content {
-                padding: 20px 15px;
+                padding: 0; /* Elimina el padding de .content en móvil */
             }
             
+            .section {
+                padding: 20px 15px; /* Aplica el padding de la sección aquí en móvil */
+            }
+
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
@@ -749,7 +747,8 @@
             .activities-container {
                 grid-template-columns: 1fr;
                 gap: 15px;
-                max-height: calc(100vh - 280px); /* Ajuste para espacio disponible en móvil */
+                max-height: calc(100vh - (15px * 2 + 50px + 10px) - (40px + 10px)); /* Altura de header (variable) + nav (variable) + padding del content */
+                /* Ajuste más dinámico de max-height. Esto podría necesitar pruebas */
             }
             
             .activity-card {
@@ -765,7 +764,7 @@
             }
             
             .timeline-container {
-                max-height: calc(100vh - 180px); /* Ajuste para espacio disponible en móvil */
+                max-height: calc(100vh - (15px * 2 + 50px + 10px) - (40px + 10px)); /* Similar ajuste */
             }
             
             .timeline-item {
@@ -844,27 +843,27 @@
             
             /* --- INVITACIÓN RESPONSIVE MEJORADO --- */
             #invitacion {
-                padding: 20px 0; /* Padding vertical para no pegarse a los bordes */
+                /* Padding ya se maneja en .section */
             }
 
             .invitacion-content-wrapper {
                 grid-template-columns: 1fr; /* Una columna para móviles */
                 gap: 25px; /* Espacio reducido entre paneles */
-                padding: 0 15px; /* Padding horizontal para el contenido principal */
+                /* Padding ya se maneja en .section */
             }
             
             .gradient-panel {
                 padding: 30px 25px; /* Ajustar padding */
-                margin-bottom: 0; /* Eliminar margen inferior si lo tuviera */
+                margin-bottom: 0;
             }
             
             .gradient-panel .emoji {
-                font-size: 2.8em; /* Tamaño de emoji más pequeño */
+                font-size: 2.8em;
                 margin-bottom: 20px;
             }
 
             .gradient-panel h3 {
-                font-size: 1.8em; /* Tamaño de fecha más pequeño */
+                font-size: 1.8em;
             }
             
             .gradient-panel .time-badge {
@@ -872,12 +871,12 @@
             }
             
             .gradient-panel .time-badge p {
-                font-size: 1.3em; /* Tamaño de hora más pequeño */
+                font-size: 1.3em;
             }
             
             .gradient-panel .location-info {
                 padding: 15px;
-                width: 90%; /* Ajuste de ancho */
+                width: 90%;
             }
             
             .location-info .emoji {
@@ -893,7 +892,7 @@
             }
             
             .agenda-panel {
-                padding: 0; /* No necesita padding extra aquí, lo maneja el wrapper */
+                padding: 0; /* Padding ya se maneja en .section */
             }
             
             .agenda-panel h2 {
@@ -972,7 +971,7 @@
         </div>
 
         <div class="navigation">
-            <button class="nav-button active" onclick="showSection('resumen')" data-section="resumen">
+            <button class="nav-button" onclick="showSection('resumen')" data-section="resumen">
                 <span class="nav-icon">📊</span> Resumen Ejecutivo
             </button>
             <button class="nav-button" onclick="showSection('avances')" data-section="avances">
@@ -990,7 +989,7 @@
         </div>
 
         <div class="content">
-            <div class="section active" id="resumen">
+            <div class="section" id="resumen">
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-number">15</div>
@@ -1305,7 +1304,7 @@
 
         // Asegurar que la sección inicial se muestre correctamente al cargar
         document.addEventListener('DOMContentLoaded', () => {
-            showSection('resumen'); // O la sección que desees que cargue por defecto
+            showSection('resumen'); // Asegura que "Resumen Ejecutivo" sea la sección inicial
         });
     </script>
 </body>
