@@ -19,7 +19,7 @@
             overflow: hidden; /* Esto oculta el scroll de todo el body, lo manejamos por secciones */
             color: #000;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            -moz-osx-smoothing: grayscale;
             touch-action: manipulation;
         }
 
@@ -121,33 +121,32 @@
             font-size: 1.2em;
         }
 
-        /* --- CAMBIO CLAVE AQUÍ: .content y .section --- */
+        /* --- CAMBIO CLAVE AQUÍ: .content y .section (con !important para diagnóstico) --- */
         .content {
             flex: 1;
-            /* Eliminado padding y justify-content para que las secciones se manejen a sí mismas */
-            display: block; /* Vuelve a ser un bloque normal */
-            position: relative; /* Contexto de posicionamiento para las secciones absolutas */
-            overflow: hidden; /* Oculta cualquier desbordamiento general del contenedor de secciones */
+            display: block;
+            position: relative;
+            overflow: hidden;
         }
 
         .section {
-            display: none;
+            display: none !important; /* Forzar que se oculte por defecto */
             animation: fadeIn 0.5s ease;
-            position: absolute; /* Posiciona las secciones de forma absoluta */
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow-y: auto; /* Permite scroll individual si la sección es muy larga */
+            overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
             scrollbar-color: #e2e8f0 transparent;
-            padding: 40px; /* El padding se mueve AHORA a cada sección */
-            box-sizing: border-box; /* Asegura que el padding no cause desbordamiento con width/height 100% */
+            padding: 40px;
+            box-sizing: border-box;
         }
 
         .section.active {
-            display: block;
+            display: block !important; /* Forzar que se muestre cuando esté activa */
         }
 
         @keyframes fadeIn {
@@ -193,8 +192,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
-            max-height: calc(100vh - 300px); /* Ajuste basado en el header y navigation */
-            /* Este max-height puede necesitar ser ajustado dependiendo de la altura de header/navigation + padding de .section */
+            max-height: calc(100% - 80px); /* Ajuste relativo al padding del .section */
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
@@ -269,8 +267,7 @@
         }
 
         .timeline-container {
-            max-height: calc(100vh - 200px); /* Ajuste basado en el header y navigation */
-            /* Este max-height puede necesitar ser ajustado dependiendo de la altura de header/navigation + padding de .section */
+            max-height: calc(100% - 80px); /* Ajuste relativo al padding del .section */
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
@@ -428,7 +425,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Padding ya está en .section, así que no es necesario aquí */
         }
 
         .invitacion-content-wrapper {
@@ -438,7 +434,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             align-items: center;
-            /* Padding ya está en .section, así que no es necesario aquí, a menos que quieras más interno */
         }
 
         .gradient-panel {
@@ -630,7 +625,6 @@
 
         /* --- MEDIA QUERIES --- */
         @media (max-width: 1024px) {
-            /* Ajustes para tabletas y pantallas más pequeñas antes de móvil */
             .invitacion-content-wrapper {
                 gap: 30px;
             }
@@ -720,11 +714,11 @@
             }
             
             .content {
-                padding: 0; /* Elimina el padding de .content en móvil */
+                padding: 0;
             }
             
             .section {
-                padding: 20px 15px; /* Aplica el padding de la sección aquí en móvil */
+                padding: 20px 15px;
             }
 
             .stats-grid {
@@ -745,10 +739,9 @@
             }
             
             .activities-container {
+                max-height: calc(100% - 40px); /* Ajuste en relación al padding de la sección */
                 grid-template-columns: 1fr;
                 gap: 15px;
-                max-height: calc(100vh - (15px * 2 + 50px + 10px) - (40px + 10px)); /* Altura de header (variable) + nav (variable) + padding del content */
-                /* Ajuste más dinámico de max-height. Esto podría necesitar pruebas */
             }
             
             .activity-card {
@@ -764,7 +757,7 @@
             }
             
             .timeline-container {
-                max-height: calc(100vh - (15px * 2 + 50px + 10px) - (40px + 10px)); /* Similar ajuste */
+                max-height: calc(100% - 40px); /* Ajuste en relación al padding de la sección */
             }
             
             .timeline-item {
@@ -843,17 +836,16 @@
             
             /* --- INVITACIÓN RESPONSIVE MEJORADO --- */
             #invitacion {
-                /* Padding ya se maneja en .section */
+                /* El padding se maneja en .section */
             }
 
             .invitacion-content-wrapper {
-                grid-template-columns: 1fr; /* Una columna para móviles */
-                gap: 25px; /* Espacio reducido entre paneles */
-                /* Padding ya se maneja en .section */
+                grid-template-columns: 1fr;
+                gap: 25px;
             }
             
             .gradient-panel {
-                padding: 30px 25px; /* Ajustar padding */
+                padding: 30px 25px;
                 margin-bottom: 0;
             }
             
@@ -892,7 +884,7 @@
             }
             
             .agenda-panel {
-                padding: 0; /* Padding ya se maneja en .section */
+                padding: 0;
             }
             
             .agenda-panel h2 {
