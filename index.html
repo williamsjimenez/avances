@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>PPPC Pereira - Avances y Programación</title>
     <style>
+        /* Estilos generales y base */
         * {
             margin: 0;
             padding: 0;
@@ -15,7 +16,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: white;
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* Esto oculta el scroll de todo el body, lo manejamos por secciones */
             color: #000;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -126,12 +127,30 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: hidden;
+            overflow: hidden; /* Asegura que la sección actual no genere scroll extra si su contenido es mayor al de .content */
         }
 
         .section {
             display: none;
             animation: fadeIn 0.5s ease;
+            height: 100%; /* Las secciones deben tomar la altura disponible del .content */
+            overflow-y: auto; /* Permite scroll individual si la sección es muy larga */
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #e2e8f0 transparent;
+        }
+
+        .section::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .section::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .section::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 3px;
         }
 
         .section.active {
@@ -181,7 +200,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
-            max-height: calc(100vh - 300px);
+            max-height: calc(100vh - 300px); /* Ajuste basado en el header y navigation */
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
@@ -256,7 +275,7 @@
         }
 
         .timeline-container {
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - 200px); /* Ajuste basado en el header y navigation */
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
@@ -409,6 +428,250 @@
             font-size: 1.1em;
         }
 
+        /* --- ESTILOS ESPECÍFICOS PARA LA SECCIÓN DE INVITACIÓN --- */
+        #invitacion {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* Asegura que la sección tome toda la altura disponible */
+            overflow-y: auto; /* Permite scroll si el contenido es muy grande, especialmente en móviles */
+        }
+
+        .invitacion-content-wrapper {
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 20px; /* Añade un padding para evitar que toque los bordes de la pantalla */
+        }
+
+        .gradient-panel {
+            background: linear-gradient(135deg, #1a365d 0%, #8b0000 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Sutil sombra para destacar */
+            display: flex; /* Para centrar contenido con flexbox */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gradient-panel .background-shape-1 {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .gradient-panel .background-shape-2 {
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .gradient-panel .content-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%; /* Asegura que el contenido interno no se desborde */
+        }
+
+        .gradient-panel .emoji {
+            font-size: 3.5em;
+            margin-bottom: 25px;
+        }
+
+        .gradient-panel h3 {
+            font-size: 2.2em;
+            font-weight: 300;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .gradient-panel .time-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 30px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            display: inline-block; /* Para que el badge no ocupe todo el ancho */
+        }
+
+        .gradient-panel .time-badge p {
+            font-size: 1.6em;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .gradient-panel .location-info {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            width: 80%; /* Ajuste para que no sea demasiado ancho en pantallas grandes */
+            margin: 0 auto; /* Centrar */
+        }
+
+        .location-info .emoji {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+        }
+
+        .location-info p:first-of-type {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .location-info p:last-of-type {
+            font-size: 1.1em;
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .agenda-panel {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Espacio entre los elementos del panel */
+        }
+
+        .agenda-panel .panel-header {
+            text-align: center;
+            margin-bottom: 10px; /* Reducido para mejor flujo */
+        }
+
+        .agenda-panel h2 {
+            color: #1a365d;
+            font-size: 2em;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .agenda-panel .panel-subtitle {
+            color: #4a5568;
+            font-size: 1.1em;
+        }
+
+        .agenda-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .agenda-card h4 {
+            color: #1a365d;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .agenda-card .agenda-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre los items de la agenda */
+        }
+
+        .agenda-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+
+        .agenda-item .bullet {
+            color: #8b0000;
+            font-size: 1.2em;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+
+        .agenda-item .description {
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .objetivo-card {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #8b0000;
+            text-align: center;
+        }
+
+        .objetivo-card .emoji {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+        }
+
+        .objetivo-card .title {
+            color: #1a365d;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .objetivo-card .description {
+            color: #4a5568;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 1024px) {
+            /* Ajustes para tabletas y pantallas más pequeñas antes de móvil */
+            .invitacion-content-wrapper {
+                gap: 30px;
+            }
+            .gradient-panel {
+                padding: 40px 30px;
+            }
+            .gradient-panel h3 {
+                font-size: 2em;
+            }
+            .gradient-panel .time-badge p {
+                font-size: 1.4em;
+            }
+            .location-info p:first-of-type {
+                font-size: 1.2em;
+            }
+            .location-info p:last-of-type {
+                font-size: 1em;
+            }
+            .agenda-panel {
+                padding: 15px;
+            }
+            .agenda-panel h2 {
+                font-size: 1.8em;
+            }
+            .agenda-panel .panel-subtitle {
+                font-size: 1em;
+            }
+            .agenda-card {
+                padding: 25px;
+            }
+            .objetivo-card {
+                padding: 18px;
+            }
+        }
+
         @media (max-width: 768px) {
             .header {
                 padding: 15px;
@@ -486,7 +749,7 @@
             .activities-container {
                 grid-template-columns: 1fr;
                 gap: 15px;
-                max-height: calc(100vh - 280px);
+                max-height: calc(100vh - 280px); /* Ajuste para espacio disponible en móvil */
             }
             
             .activity-card {
@@ -502,7 +765,7 @@
             }
             
             .timeline-container {
-                max-height: calc(100vh - 180px);
+                max-height: calc(100vh - 180px); /* Ajuste para espacio disponible en móvil */
             }
             
             .timeline-item {
@@ -579,79 +842,118 @@
                 padding: 6px 0;
             }
             
-            /* Invitación responsive */
-            #invitacion > div {
-                height: auto !important;
-                padding: 15px 0 !important;
-                align-items: stretch !important;
+            /* --- INVITACIÓN RESPONSIVE MEJORADO --- */
+            #invitacion {
+                padding: 20px 0; /* Padding vertical para no pegarse a los bordes */
+            }
+
+            .invitacion-content-wrapper {
+                grid-template-columns: 1fr; /* Una columna para móviles */
+                gap: 25px; /* Espacio reducido entre paneles */
+                padding: 0 15px; /* Padding horizontal para el contenido principal */
             }
             
-            #invitacion > div > div {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-                max-width: 100% !important;
+            .gradient-panel {
+                padding: 30px 25px; /* Ajustar padding */
+                margin-bottom: 0; /* Eliminar margen inferior si lo tuviera */
             }
             
-            #invitacion .gradient-panel {
-                padding: 30px 20px !important;
-                margin-bottom: 0;
+            .gradient-panel .emoji {
+                font-size: 2.8em; /* Tamaño de emoji más pequeño */
+                margin-bottom: 20px;
+            }
+
+            .gradient-panel h3 {
+                font-size: 1.8em; /* Tamaño de fecha más pequeño */
             }
             
-            #invitacion .gradient-panel h3 {
-                font-size: 1.8em !important;
+            .gradient-panel .time-badge {
+                padding: 12px 20px;
             }
             
-            #invitacion .gradient-panel .time-badge {
-                font-size: 1.3em !important;
-                padding: 12px 20px !important;
+            .gradient-panel .time-badge p {
+                font-size: 1.3em; /* Tamaño de hora más pequeño */
             }
             
-            #invitacion .gradient-panel .location-info {
-                padding: 15px !important;
+            .gradient-panel .location-info {
+                padding: 15px;
+                width: 90%; /* Ajuste de ancho */
             }
             
-            #invitacion .gradient-panel .location-info p:first-of-type {
-                font-size: 1.1em !important;
+            .location-info .emoji {
+                font-size: 1.5em;
+            }
+
+            .location-info p:first-of-type {
+                font-size: 1.1em;
             }
             
-            #invitacion .gradient-panel .location-info p:last-of-type {
-                font-size: 0.95em !important;
+            .location-info p:last-of-type {
+                font-size: 0.95em;
             }
             
-            #invitacion .agenda-panel {
-                padding: 15px !important;
+            .agenda-panel {
+                padding: 0; /* No necesita padding extra aquí, lo maneja el wrapper */
             }
             
-            #invitacion .agenda-panel h2 {
-                font-size: 1.6em !important;
+            .agenda-panel h2 {
+                font-size: 1.6em;
             }
             
-            #invitacion .agenda-panel h4 {
-                font-size: 1.2em !important;
+            .agenda-panel h4 {
+                font-size: 1.2em;
             }
             
-            #invitacion .agenda-card {
-                padding: 20px !important;
-                margin-bottom: 20px !important;
+            .agenda-card {
+                padding: 20px;
+                margin-bottom: 20px;
             }
             
-            #invitacion .agenda-item {
-                padding: 8px !important;
-                margin-bottom: 8px !important;
+            .agenda-item {
+                padding: 8px;
             }
             
-            #invitacion .agenda-item span:last-child {
-                font-size: 0.85em !important;
+            .agenda-item .description {
+                font-size: 0.85em;
             }
             
-            #invitacion .objetivo-card {
-                padding: 15px !important;
+            .objetivo-card {
+                padding: 15px;
             }
             
-            #invitacion .objetivo-card p:last-child {
-                font-size: 0.85em !important;
+            .objetivo-card .description {
+                font-size: 0.85em;
             }
         }
+
+        /* Pequeño ajuste para pantallas muy pequeñas (ej. iPhone 5/SE) */
+        @media (max-width: 480px) {
+            .gradient-panel {
+                padding: 25px 15px;
+            }
+            .gradient-panel .emoji {
+                font-size: 2.2em;
+            }
+            .gradient-panel h3 {
+                font-size: 1.6em;
+            }
+            .gradient-panel .time-badge p {
+                font-size: 1.2em;
+            }
+            .location-info p:first-of-type {
+                font-size: 1em;
+            }
+            .location-info p:last-of-type {
+                font-size: 0.9em;
+            }
+            .agenda-card {
+                padding: 18px;
+            }
+            .agenda-card h4 {
+                font-size: 1.1em;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -665,71 +967,6 @@
                 <div class="header-title">
                     <h1>Política Pública de Participación Ciudadana</h1>
                     <p>Secretaría de Planeación • Julio 2025</p>
-                </div>
-            </div>
-
-            <!-- SECCIÓN INVITACIÓN -->
-            <div class="section" id="invitacion">
-                <div style="height: calc(100vh - 200px); display: flex; align-items: center; justify-content: center;">
-                    <div style="max-width: 1000px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
-                        
-                        <!-- Panel Izquierdo - Información Principal -->
-                        <div class="gradient-panel" style="background: linear-gradient(135deg, #1a365d 0%, #8b0000 100%); color: white; padding: 50px 40px; border-radius: 25px; text-align: center; position: relative; overflow: hidden;">
-                            <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
-                            <div style="position: absolute; bottom: -30px; left: -30px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
-                            
-                            <div style="position: relative; z-index: 1;">
-                                <div style="font-size: 3.5em; margin-bottom: 25px;">📅</div>
-                                <h3 style="font-size: 2.2em; font-weight: 300; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">1 de Agosto</h3>
-                                <div class="time-badge" style="background: rgba(255,255,255,0.2); padding: 15px 25px; border-radius: 30px; margin-bottom: 25px; backdrop-filter: blur(10px);">
-                                    <p style="font-size: 1.6em; margin: 0; font-weight: 500;">14:00 horas</p>
-                                </div>
-                                <div class="location-info" style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 20px; backdrop-filter: blur(10px);">
-                                    <div style="font-size: 1.8em; margin-bottom: 8px;">🏛️</div>
-                                    <p style="font-size: 1.3em; font-weight: 600; margin: 0;">Universidad Tecnológica</p>
-                                    <p style="font-size: 1.1em; margin: 5px 0 0 0; opacity: 0.9;">de Pereira</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Panel Derecho - Agenda y Detalles -->
-                        <div class="agenda-panel" style="padding: 20px;">
-                            <div style="text-align: center; margin-bottom: 30px;">
-                                <h2 style="color: #1a365d; font-size: 2em; font-weight: 300; margin-bottom: 10px;">Próxima Reunión</h2>
-                                <p style="color: #4a5568; font-size: 1.1em;">Continuidad del proceso participativo</p>
-                            </div>
-                            
-                            <div class="agenda-card" style="background: white; border: 2px solid #e2e8f0; border-radius: 20px; padding: 30px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
-                                <h4 style="color: #1a365d; font-size: 1.3em; margin-bottom: 20px; text-align: center;">📋 Agenda</h4>
-                                <div style="space-y: 15px;">
-                                    <div class="agenda-item" style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
-                                        <span style="color: #8b0000; font-size: 1.2em; margin-right: 12px; margin-top: 2px;">•</span>
-                                        <span style="color: #4a5568; line-height: 1.4;">Presentación de resultados del diagnóstico</span>
-                                    </div>
-                                    <div class="agenda-item" style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
-                                        <span style="color: #8b0000; font-size: 1.2em; margin-right: 12px; margin-top: 2px;">•</span>
-                                        <span style="color: #4a5568; line-height: 1.4;">Análisis de necesidades por sector</span>
-                                    </div>
-                                    <div class="agenda-item" style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
-                                        <span style="color: #8b0000; font-size: 1.2em; margin-right: 12px; margin-top: 2px;">•</span>
-                                        <span style="color: #4a5568; line-height: 1.4;">Propuesta preliminar de política pública</span>
-                                    </div>
-                                    <div class="agenda-item" style="display: flex; align-items: flex-start; padding: 10px; background: #f8f9ff; border-radius: 10px;">
-                                        <span style="color: #8b0000; font-size: 1.2em; margin-right: 12px; margin-top: 2px;">•</span>
-                                        <span style="color: #4a5568; line-height: 1.4;">Definición de siguientes fases</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="objetivo-card" style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); padding: 20px; border-radius: 15px; border-left: 5px solid #8b0000; text-align: center;">
-                                <div style="font-size: 1.5em; margin-bottom: 8px;">🎯</div>
-                                <p style="color: #1a365d; font-weight: 600; margin-bottom: 8px; font-size: 1.1em;">Objetivo</p>
-                                <p style="color: #4a5568; font-size: 0.95em; line-height: 1.5; margin: 0;">
-                                    Socializar avances de julio y definir colaborativamente los lineamientos para la fase de formulación de la PPPC.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -748,12 +985,11 @@
                 <span class="nav-icon">🎯</span> Progreso y Próximos Pasos
             </button>
             <button class="nav-button" onclick="showSection('invitacion')" data-section="invitacion">
-                <span class="nav-icon">📅</span> Próxima Reunión
+                <span class="nav-icon">🤝</span> Próxima Reunión
             </button>
         </div>
 
         <div class="content">
-            <!-- SECCIÓN RESUMEN -->
             <div class="section active" id="resumen">
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -783,7 +1019,6 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN AVANCES -->
             <div class="section" id="avances">
                 <div class="sector-header">
                     <h2 class="sector-title">Avances Realizados</h2>
@@ -865,7 +1100,6 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN PROGRAMACIÓN -->
             <div class="section" id="programacion">
                 <div class="sector-header">
                     <h2 class="sector-title">Programación Semanal</h2>
@@ -952,7 +1186,6 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN PROGRESO -->
             <div class="section" id="progreso">
                 <div class="progress-section">
                     <div class="progress-circle">
@@ -970,6 +1203,65 @@
                             <li>Elaboración del documento técnico final de la política pública</li>
                             <li>Preparación para fase de implementación y seguimiento</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="invitacion">
+                <div class="invitacion-content-wrapper">
+                    <div class="gradient-panel">
+                        <div class="background-shape-1"></div>
+                        <div class="background-shape-2"></div>
+                        
+                        <div class="content-wrapper">
+                            <div class="emoji">📅</div>
+                            <h3>1 de Agosto</h3>
+                            <div class="time-badge">
+                                <p>14:00 horas</p>
+                            </div>
+                            <div class="location-info">
+                                <div class="emoji">🏛️</div>
+                                <p>Universidad Tecnológica</p>
+                                <p>de Pereira</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="agenda-panel">
+                        <div class="panel-header">
+                            <h2>Próxima Reunión</h2>
+                            <p class="panel-subtitle">Continuidad del proceso participativo</p>
+                        </div>
+                        
+                        <div class="agenda-card">
+                            <h4>📋 Agenda</h4>
+                            <div class="agenda-items">
+                                <div class="agenda-item">
+                                    <span class="bullet">•</span>
+                                    <span class="description">Presentación de resultados del diagnóstico</span>
+                                </div>
+                                <div class="agenda-item">
+                                    <span class="bullet">•</span>
+                                    <span class="description">Análisis de necesidades por sector</span>
+                                </div>
+                                <div class="agenda-item">
+                                    <span class="bullet">•</span>
+                                    <span class="description">Propuesta preliminar de política pública</span>
+                                </div>
+                                <div class="agenda-item">
+                                    <span class="bullet">•</span>
+                                    <span class="description">Definición de siguientes fases</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="objetivo-card">
+                            <div class="emoji">🎯</div>
+                            <p class="title">Objetivo</p>
+                            <p class="description">
+                                Socializar avances de julio y definir colaborativamente los lineamientos para la fase de formulación de la PPPC.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -993,6 +1285,9 @@
             
             // Activar botón correspondiente
             document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+
+            // Scroll al principio de la sección si es necesario
+            document.getElementById(sectionId).scrollTop = 0;
         }
 
         // Navegación con teclado
@@ -1006,6 +1301,11 @@
             } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
                 showSection(sections[currentIndex - 1]);
             }
+        });
+
+        // Asegurar que la sección inicial se muestre correctamente al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('resumen'); // O la sección que desees que cargue por defecto
         });
     </script>
 </body>
