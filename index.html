@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>PPPC Pereira - Avances y Programación</title>
     <style>
         * {
@@ -17,6 +17,9 @@
             height: 100vh;
             overflow: hidden;
             color: #000;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
         }
 
         .container {
@@ -77,6 +80,12 @@
             display: flex;
             gap: 10px;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .navigation::-webkit-scrollbar {
+            display: none;
         }
 
         .nav-button {
@@ -92,6 +101,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            min-height: 44px;
+            touch-action: manipulation;
         }
 
         .nav-button:hover {
@@ -172,6 +183,22 @@
             gap: 20px;
             max-height: calc(100vh - 300px);
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #e2e8f0 transparent;
+        }
+
+        .activities-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .activities-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .activities-container::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 3px;
         }
 
         .activity-card {
@@ -231,6 +258,22 @@
         .timeline-container {
             max-height: calc(100vh - 200px);
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #e2e8f0 transparent;
+        }
+
+        .timeline-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .timeline-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .timeline-container::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 3px;
         }
 
         .timeline-item {
@@ -367,30 +410,246 @@
         }
 
         @media (max-width: 768px) {
+            .header {
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .header-left {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .logo-container {
+                gap: 15px;
+            }
+            
+            .logo-img {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .header-title {
+                margin-left: 0;
+            }
+            
+            .header-title h1 {
+                font-size: 1.4em;
+            }
+            
+            .header-title p {
+                font-size: 0.8em;
+            }
+            
             .navigation {
+                padding: 10px;
                 overflow-x: auto;
+                gap: 8px;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 0.85em;
+                white-space: nowrap;
+                min-height: 40px;
+                flex-shrink: 0;
+            }
+            
+            .nav-icon {
+                font-size: 1em;
             }
             
             .content {
-                padding: 20px;
+                padding: 20px 15px;
             }
             
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .stat-card {
+                padding: 20px 15px;
+            }
+            
+            .stat-number {
+                font-size: 2.2em;
+            }
+            
+            .stat-label {
+                font-size: 0.9em;
             }
             
             .activities-container {
                 grid-template-columns: 1fr;
+                gap: 15px;
+                max-height: calc(100vh - 280px);
             }
             
+            .activity-card {
+                padding: 15px;
+            }
+            
+            .activity-title {
+                font-size: 1em;
+            }
+            
+            .activity-details {
+                font-size: 0.85em;
+            }
+            
+            .timeline-container {
+                max-height: calc(100vh - 180px);
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                align-items: stretch;
+                margin-bottom: 20px;
+            }
+            
+            .timeline-item::before {
+                display: none;
+            }
+            
+            .timeline-date {
+                margin-right: 0;
+                margin-bottom: 10px;
+                text-align: center;
+                font-size: 0.9em;
+                padding: 8px 12px;
+            }
+            
+            .timeline-content {
+                padding: 15px;
+            }
+            
+            .sector-header {
+                margin-bottom: 20px;
+            }
+            
+            .sector-title {
+                font-size: 1.5em;
+            }
+            
+            .sector-subtitle {
+                font-size: 1em;
+            }
+            
+            .progress-circle {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 20px;
+            }
+            
+            .progress-circle::before {
+                width: 110px;
+                height: 110px;
+            }
+            
+            .progress-text {
+                font-size: 1.6em;
+            }
+            
+            .progress-description {
+                font-size: 1.1em;
+                margin-bottom: 20px;
+            }
+            
+            .next-steps {
+                padding: 20px;
+            }
+            
+            .next-steps h3 {
+                font-size: 1.2em;
+                margin-bottom: 15px;
+            }
+            
+            .meta-tag {
+                font-size: 0.75em;
+                padding: 3px 8px;
+                margin: 2px;
+            }
+            
+            .next-steps li {
+                font-size: 0.9em;
+                padding: 6px 0;
+            }
+            
+            /* Invitación responsive */
             #invitacion > div {
                 height: auto !important;
-                padding: 20px 0;
+                padding: 15px 0 !important;
+                align-items: stretch !important;
             }
             
             #invitacion > div > div {
                 grid-template-columns: 1fr !important;
-                gap: 30px !important;
+                gap: 20px !important;
+                max-width: 100% !important;
+            }
+            
+            #invitacion .gradient-panel {
+                padding: 30px 20px !important;
+                margin-bottom: 0;
+            }
+            
+            #invitacion .gradient-panel h3 {
+                font-size: 1.8em !important;
+            }
+            
+            #invitacion .gradient-panel .time-badge {
+                font-size: 1.3em !important;
+                padding: 12px 20px !important;
+            }
+            
+            #invitacion .gradient-panel .location-info {
+                padding: 15px !important;
+            }
+            
+            #invitacion .gradient-panel .location-info p:first-of-type {
+                font-size: 1.1em !important;
+            }
+            
+            #invitacion .gradient-panel .location-info p:last-of-type {
+                font-size: 0.95em !important;
+            }
+            
+            #invitacion .agenda-panel {
+                padding: 15px !important;
+            }
+            
+            #invitacion .agenda-panel h2 {
+                font-size: 1.6em !important;
+            }
+            
+            #invitacion .agenda-panel h4 {
+                font-size: 1.2em !important;
+            }
+            
+            #invitacion .agenda-card {
+                padding: 20px !important;
+                margin-bottom: 20px !important;
+            }
+            
+            #invitacion .agenda-item {
+                padding: 8px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            #invitacion .agenda-item span:last-child {
+                font-size: 0.85em !important;
+            }
+            
+            #invitacion .objetivo-card {
+                padding: 15px !important;
+            }
+            
+            #invitacion .objetivo-card p:last-child {
+                font-size: 0.85em !important;
             }
         }
     </style>
@@ -415,17 +674,17 @@
                     <div style="max-width: 1000px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
                         
                         <!-- Panel Izquierdo - Información Principal -->
-                        <div style="background: linear-gradient(135deg, #1a365d 0%, #8b0000 100%); color: white; padding: 50px 40px; border-radius: 25px; text-align: center; position: relative; overflow: hidden;">
+                        <div class="gradient-panel" style="background: linear-gradient(135deg, #1a365d 0%, #8b0000 100%); color: white; padding: 50px 40px; border-radius: 25px; text-align: center; position: relative; overflow: hidden;">
                             <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
                             <div style="position: absolute; bottom: -30px; left: -30px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
                             
                             <div style="position: relative; z-index: 1;">
                                 <div style="font-size: 3.5em; margin-bottom: 25px;">📅</div>
                                 <h3 style="font-size: 2.2em; font-weight: 300; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">1 de Agosto</h3>
-                                <div style="background: rgba(255,255,255,0.2); padding: 15px 25px; border-radius: 30px; margin-bottom: 25px; backdrop-filter: blur(10px);">
+                                <div class="time-badge" style="background: rgba(255,255,255,0.2); padding: 15px 25px; border-radius: 30px; margin-bottom: 25px; backdrop-filter: blur(10px);">
                                     <p style="font-size: 1.6em; margin: 0; font-weight: 500;">14:00 horas</p>
                                 </div>
-                                <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 20px; backdrop-filter: blur(10px);">
+                                <div class="location-info" style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 20px; backdrop-filter: blur(10px);">
                                     <div style="font-size: 1.8em; margin-bottom: 8px;">🏛️</div>
                                     <p style="font-size: 1.3em; font-weight: 600; margin: 0;">Universidad Tecnológica</p>
                                     <p style="font-size: 1.1em; margin: 5px 0 0 0; opacity: 0.9;">de Pereira</p>
@@ -434,35 +693,35 @@
                         </div>
                         
                         <!-- Panel Derecho - Agenda y Detalles -->
-                        <div style="padding: 20px;">
+                        <div class="agenda-panel" style="padding: 20px;">
                             <div style="text-align: center; margin-bottom: 30px;">
                                 <h2 style="color: #1a365d; font-size: 2em; font-weight: 300; margin-bottom: 10px;">Próxima Reunión</h2>
                                 <p style="color: #4a5568; font-size: 1.1em;">Continuidad del proceso participativo</p>
                             </div>
                             
-                            <div style="background: white; border: 2px solid #e2e8f0; border-radius: 20px; padding: 30px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
+                            <div class="agenda-card" style="background: white; border: 2px solid #e2e8f0; border-radius: 20px; padding: 30px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
                                 <h4 style="color: #1a365d; font-size: 1.3em; margin-bottom: 20px; text-align: center;">📋 Agenda</h4>
                                 <div style="space-y: 15px;">
-                                    <div style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
+                                    <div class="agenda-item" style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
                                         <span style="color: #8b0000; font-size: 1.2em; margin-right: 12px; margin-top: 2px;">•</span>
                                         <span style="color: #4a5568; line-height: 1.4;">Presentación de resultados del diagnóstico</span>
                                     </div>
-                                    <div style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
+                                    <div class="agenda-item" style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
                                         <span style="color: #8b0000; font-size: 1.2em; margin-right: 12px; margin-top: 2px;">•</span>
                                         <span style="color: #4a5568; line-height: 1.4;">Análisis de necesidades por sector</span>
                                     </div>
-                                    <div style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
+                                    <div class="agenda-item" style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 10px; background: #f8f9ff; border-radius: 10px;">
                                         <span style="color: #8b0000; font-size: 1.2em; margin-right: 12px; margin-top: 2px;">•</span>
                                         <span style="color: #4a5568; line-height: 1.4;">Propuesta preliminar de política pública</span>
                                     </div>
-                                    <div style="display: flex; align-items: flex-start; padding: 10px; background: #f8f9ff; border-radius: 10px;">
+                                    <div class="agenda-item" style="display: flex; align-items: flex-start; padding: 10px; background: #f8f9ff; border-radius: 10px;">
                                         <span style="color: #8b0000; font-size: 1.2em; margin-right: 12px; margin-top: 2px;">•</span>
                                         <span style="color: #4a5568; line-height: 1.4;">Definición de siguientes fases</span>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); padding: 20px; border-radius: 15px; border-left: 5px solid #8b0000; text-align: center;">
+                            <div class="objetivo-card" style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); padding: 20px; border-radius: 15px; border-left: 5px solid #8b0000; text-align: center;">
                                 <div style="font-size: 1.5em; margin-bottom: 8px;">🎯</div>
                                 <p style="color: #1a365d; font-weight: 600; margin-bottom: 8px; font-size: 1.1em;">Objetivo</p>
                                 <p style="color: #4a5568; font-size: 0.95em; line-height: 1.5; margin: 0;">
